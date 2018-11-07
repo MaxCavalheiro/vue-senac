@@ -1,15 +1,14 @@
 <template>
   <v-container fluid>
-
-    <!-- Nosso primeiro componente -->
     <BeerDetail />
-
   </v-container>
 </template>
 
 <script>
 // Importação do componente
 import BeerDetail from "../components/BeerDetail.vue";
+import router from '../router.js';
+
 export default {
   // Registro do componente
   components: {

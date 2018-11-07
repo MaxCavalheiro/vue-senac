@@ -1,7 +1,11 @@
 <template>
-  <!-- Adicionando o componente de card -->
   <v-card>
-    <!-- Atualizando para melhoria visual -->
+    <v-card-actions>
+      <v-btn flat icon color="primary" @click="$router.go(-1)">
+        <v-icon>keyboard_backspace</v-icon>
+      </v-btn>
+    </v-card-actions>
+    
     <v-img
       :src="beer.image_url"
       aspect-ratio="1"
@@ -21,8 +25,9 @@
     </v-card-title>
 
     <v-card-actions>
-      <v-btn flat color="blue" v-on:click="addToCart(beer)">Adicionar</v-btn>
-      <v-btn flat color="orange" @click="$router.go(-1)">Voltar</v-btn>
+      <v-btn flat icon color="primary" v-on:click="addToCart(beer)">
+        <v-icon>add_shopping_cart</v-icon>
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -38,11 +43,11 @@ export default {
     return {beer:{}}  
     },
     mounted() {
-      performData();
+      this.performData();
     },
     watch: {
       '$route' (to, from) {
-        performData();
+        this.performData();
       }
     },
   methods: {

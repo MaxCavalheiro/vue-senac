@@ -17,8 +17,14 @@
     </v-card-title>
 
     <v-card-actions>
-      <v-btn flat color="blue" v-on:click="addToCart(beer)">Adicionar</v-btn>
-      <v-btn flat color="orange"  :to="{name: 'BeerDetail', params: { id: beer.id }}">Detalhes</v-btn>
+      <v-btn flat icon color="primary" v-on:click="addToCart(beer)">
+        <v-icon>add_shopping_cart</v-icon>
+      </v-btn>
+
+      <v-btn flat icon color="primary" :to="{name: 'BeerDetail', params: { id: beer.id }}">
+        <v-icon>info</v-icon>
+      </v-btn>
+
     </v-card-actions>
   </v-card>
 </template>

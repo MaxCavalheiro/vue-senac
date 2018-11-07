@@ -69,7 +69,7 @@ export default {
       store.commit("removeQtdeProd", beer)
     },
     deleteBeer(beer){
-      store.commit("excluir", beer)
+      store.commit("deleteBeer", beer)
     },
     navigateToDetail(beer) {
       router.push({name: 'BeerDetail', params: { id: beer.id }});
