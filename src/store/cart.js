@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from "axios"
 
 import VuexPersist from 'vuex-persist'
 
@@ -15,10 +16,27 @@ const vuexPersist = new VuexPersist({
 
 export default new Vuex.Store({
   plugins: [vuexPersist.plugin],
+
   state: {
+    products: [],
     beers: [],
-    qty: 0
+    qty: 0,
+    count: 0,
+    cartTotal: 0
   },
+
+  getters: {
+    alcoholicBeers(state, getters) {
+      return state.products.filter(product => product.abv > 13)
+    },
+    bitterBeers(state, getters) {
+      return state.products.filter(product => product.ibu > 20)
+    },
+    availableProducts(state, getters) {
+      return state.products.filter(product => product.ibu > 30)
+    },
+  },
+
   mutations: {
     addToCart(state, beer) {
       let index = findIndex(state.beers, (o) => o.id == beer.id)
@@ -33,6 +51,13 @@ export default new Vuex.Store({
       } else {
         state.beers[index].quantity++;
       }
+
+      state.cartTotal = state.beers.reduce((accum, curr) => accum + (curr.price * curr.quantity), 0)
+      state.count++
+
+    },
+    setProducts(state, products) {
+      state.products = products
     },
     addQtdeProd(state,beer){
       let index = findIndex(state.beers, (o) => o.id == beer.id)
@@ -49,5 +74,16 @@ export default new Vuex.Store({
       state.beers.splice(index, 1)
     }
   },
-  actions: {}
+  actions: {
+    fetchProducts({
+      commit
+    }) {
+      axios
+        .get("https://api.punkapi.com/v2/beers?brewed_before=11-2012&abv_gt=6")
+        .then(response => {
+          let results = response.data
+          commit('setProducts', results)
+        })
+    },
+  }
 })

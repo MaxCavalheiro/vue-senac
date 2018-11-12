@@ -28,10 +28,8 @@
     </v-card-actions>
   </v-card>
 </template>
-
-
-
 <script>
+
 import store from "@/store/cart.js";
 
 export default {
